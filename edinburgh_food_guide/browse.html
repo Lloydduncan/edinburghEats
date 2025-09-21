@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Browse – Edinburgh Eats</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="with-sidebar" data-page="browse">
+    <!-- Sidebar navigation -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="images/logo.png" alt="Edinburgh Eats logo" class="brand-logo-img" />
+        <span class="brand-name">Edinburgh Eats</span>
+      </div>
+      <nav>
+        <a href="index.html"><span class="icon">🏠</span><span class="label">Home</span></a>
+        <a href="browse.html"><span class="icon">🔍</span><span class="label">Browse</span></a>
+        <a href="areas.html"><span class="icon">📍</span><span class="label">Areas</span></a>
+        <a href="add_recommendation.html"><span class="icon">➕</span><span class="label">Recommend</span></a>
+        <a href="moderation.html"><span class="icon">🛡️</span><span class="label">Moderate</span></a>
+      </nav>
+    </aside>
+    <div class="main-content">
+    <header>
+      <h1>Edinburgh Eats</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="areas.html">Areas</a>
+      </nav>
+    </header>
+    <main class="container">
+      <h2>Browse restaurants & cafés</h2>
+      <form id="filter-form" class="filter-bar">
+        <!-- Search by restaurant name -->
+        <input
+          type="text"
+          id="search-input"
+          name="q"
+          placeholder="Search by restaurant name"
+          aria-label="Search by restaurant name"
+        />
+        <!-- Nearby search: enter area, postcode or address.  For this static
+             prototype the location field filters by area or postcode on
+             the client side.  A real implementation could utilise
+             geocoding and distance calculations. -->
+        <input
+          type="text"
+          id="location-input"
+          name="location"
+          placeholder="Enter area or postcode"
+          aria-label="Enter area or postcode"
+        />
+        <select id="filter-area" name="area">
+          <option value="">All areas</option>
+        </select>
+        <select id="filter-type" name="type">
+          <option value="">All types</option>
+        </select>
+
+        <!-- Price range filter -->
+        <select id="filter-price" name="price_range">
+          <option value="">All price ranges</option>
+          <option value="£">£</option>
+          <option value="££">££</option>
+          <option value="£££">£££</option>
+          <option value="££££">££££</option>
+        </select>
+        <!-- Verified filter -->
+        <label class="verified-filter">
+          <input type="checkbox" id="filter-verified" name="verified" value="true" />
+          Verified only
+        </label>
+      </form>
+      <div id="results-grid" class="grid">
+        <!-- Cards injected by script.js -->
+      </div>
+    </main>
+    <footer class="container">
+      <p>&copy; 2025 Edinburgh Eats</p>
+    </footer>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edinburgh Eats</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="with-sidebar" data-page="home">
+    <!-- Sidebar navigation present on all pages -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="images/logo.png" alt="Edinburgh Eats logo" class="brand-logo-img" />
+        <span class="brand-name">Edinburgh Eats</span>
+      </div>
+      <nav>
+        <a href="index.html"><span class="icon">🏠</span><span class="label">Home</span></a>
+        <a href="browse.html"><span class="icon">🔍</span><span class="label">Browse</span></a>
+        <a href="areas.html"><span class="icon">📍</span><span class="label">Areas</span></a>
+        <a href="add_recommendation.html"><span class="icon">➕</span><span class="label">Recommend</span></a>
+        <a href="moderation.html"><span class="icon">🛡️</span><span class="label">Moderate</span></a>
+      </nav>
+    </aside>
+    <div class="main-content">
+    <header>
+      <h1>Edinburgh Eats</h1>
+      <nav>
+        <!-- Secondary navigation remains for breadcrumb orientation -->
+        <a href="browse.html">Browse</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <h2>Discover Edinburgh's Hidden Culinary Gems</h2>
+        <p>
+          A curated community of Edinburgh food lovers sharing authentic recommendations for quality dining experiences.
+        </p>
+        <form class="search-bar" action="browse.html" method="get">
+          <input
+            type="text"
+            name="q"
+            placeholder="Search by name or keyword"
+            aria-label="Search"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </section>
+      <!-- Metrics row with counts of restaurants, reviews and verification percentage -->
+      <section class="metrics-row">
+        <div class="metric">
+          <div class="number" id="metric-restaurants">0</div>
+          <div class="label">Restaurants</div>
+        </div>
+        <div class="metric">
+          <div class="number" id="metric-reviews">0</div>
+          <div class="label">Reviews</div>
+        </div>
+        <div class="metric">
+          <div class="number" id="metric-verified">0%</div>
+          <div class="label">Verified</div>
+        </div>
+      </section>
+
+      <!-- Quick search categories -->
+      <section class="quick-search-section">
+        <h2 style="font-size:1.8rem;color:var(--color-dark-green);margin-bottom:1rem;">What are you craving?</h2>
+        <div id="quick-categories" class="quick-search-grid"></div>
+      </section>
+
+      <!-- Popular areas grid (computed dynamically) -->
+      <section class="areas-section">
+        <h2 style="font-size:2rem;color:var(--color-dark-green);text-align:center;margin-bottom:1rem;">Explore by Area</h2>
+        <p style="max-width:800px;margin:0 auto 1.5rem;text-align:center;color:var(--color-text);font-size:0.9rem;">
+          Edinburgh is divided into distinctive neighbourhoods—from the UNESCO‑listed Old Town and New Town to the bustling port of Leith, leafy suburbs of Morningside and Marchmont, seaside Portobello and more. Use the links below to explore eateries by area.  Administratively the city is split into four localities (North East, North West, South West and South East) which encompass these neighbourhoods.
+        </p>
+        <div id="popular-areas" class="areas-grid"></div>
+      </section>
+
+      <!-- Recent recommendations -->
+      <section class="recent-recs-section" style="padding:3rem 1rem;">
+        <h2 style="font-size:2rem;color:var(--color-dark-green);text-align:center;margin-bottom:1rem;">Latest Community Recommendations</h2>
+        <div id="recent-recs-grid" class="recommend-grid" style="max-width:1000px;margin:0 auto;"></div>
+      </section>
+
+      <!-- Call to action section -->
+      <section class="cta-section">
+        <h2>Join Our Food Community</h2>
+        <p>Share your Edinburgh dining experiences and help fellow food lovers discover amazing places to eat.</p>
+        <a href="add_recommendation.html" class="cta-btn">Share a Recommendation</a>
+      </section>
+    </main>
+    <footer class="container">
+      <p>
+        &copy; 2025 Edinburgh Eats. A passion project for lovers of
+        quality food.
+      </p>
+    </footer>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    </div>
+  </body>
+</html>

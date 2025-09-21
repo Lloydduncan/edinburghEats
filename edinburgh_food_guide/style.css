@@ -1,0 +1,916 @@
+/*
+ * Global styles for the Edinburgh Food Guide prototype.
+ *
+ * Colours are inspired by high‑end food magazines: rich forest greens,
+ * warm golds and creamy backgrounds.  Typography is kept simple and
+ * readable for beginners.
+ */
+
+:root {
+  /* Scottish inspired palette: navy blues and heather purples */
+  --color-cream: #fdfdfb; /* off‑white background */
+  --color-green: #243665; /* primary: deep navy */
+  --color-dark-green: #1a274c; /* darker navy for accents */
+  --color-gold: #6b5b95; /* accent: heather purple */
+  --color-light-gray: #eaeaea;
+  --color-text: #2c2c2c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-cream);
+  color: var(--color-text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  /* Offset content when sidebar is present */
+  min-height: 100vh;
+}
+
+/* Sidebar navigation inspired by Base44 prototype */
+.with-sidebar .sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background-color: var(--color-dark-green);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  z-index: 1000;
+}
+/* Branding inside the sidebar.  The logo container holds a coloured
+   square with the initials "EE" as a placeholder for a future logo,
+   and optionally the brand name. */
+.with-sidebar .sidebar .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--color-green), var(--color-dark-green));
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.brand-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.brand-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+}
+.with-sidebar .sidebar nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.with-sidebar .sidebar nav a {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.with-sidebar .sidebar nav a:hover {
+  background-color: var(--color-green);
+  text-decoration: none;
+}
+.with-sidebar .sidebar nav .icon {
+  font-size: 1.2rem;
+}
+.with-sidebar .sidebar nav .label {
+  margin-left: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Main content offset when sidebar is present */
+.with-sidebar .main-content {
+  margin-left: 200px;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 800px) {
+  .with-sidebar .sidebar {
+    width: 60px;
+    align-items: center;
+  }
+  .with-sidebar .sidebar .logo {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .with-sidebar .sidebar nav .label {
+    display: none;
+  }
+  .with-sidebar .main-content {
+    margin-left: 60px;
+  }
+}
+
+a {
+  color: var(--color-green);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  background-color: var(--color-dark-green);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Hero section on the home page */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 5rem 1rem 6rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-green) 0%,
+    var(--color-dark-green) 60%,
+    var(--color-gold) 100%
+  );
+  color: white;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  color: #fdfdfd;
+}
+
+.search-bar {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  padding: 0.8rem 1.2rem;
+  background-color: var(--color-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.search-bar button:hover {
+  background-color: var(--color-dark-green);
+}
+
+/* Customise search bar appearance when inside hero */
+.hero .search-bar input[type="text"] {
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+.hero .search-bar input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+.hero .search-bar button {
+  background-color: var(--color-gold);
+  color: var(--color-dark-green);
+}
+.hero .search-bar button:hover {
+  background-color: #b88b49;
+}
+
+/* Cards for listings and restaurant comments */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--color-green);
+}
+
+.card-content p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.ratings {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.rating-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.rating-item span:first-child {
+  font-size: 1.1rem;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-bar select,
+.filter-bar input[type="text"] {
+  padding: 0.6rem;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Style for the verified filter checkbox */
+.verified-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+.verified-filter input[type="checkbox"] {
+  accent-color: var(--color-green);
+}
+
+/* Layout for listing cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Restaurant detail page */
+.restaurant-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.restaurant-header img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.ratings-summary {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.rating-summary-item {
+  background-color: var(--color-cream);
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+
+.rating-summary-item span.value {
+  font-size: 1.5rem;
+  color: var(--color-gold);
+}
+
+.rating-summary-item span.label {
+  font-size: 0.9rem;
+  color: var(--color-dark-green);
+}
+
+.comments {
+  margin-top: 2rem;
+}
+
+.comment {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comment .comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-dark-green);
+}
+
+/* Badges to indicate verification and issue resolution on comments */
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  margin-left: 0.4rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+}
+.badge-verified {
+  background-color: var(--color-green);
+}
+.badge-unverified {
+  background-color: #888;
+}
+.badge-issue.resolved {
+  background-color: var(--color-gold);
+}
+.badge-issue.unresolved {
+  background-color: #b94a48; /* muted red */
+}
+.status-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.comment .comment-ratings {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment .comment-body {
+  font-size: 0.95rem;
+}
+
+/* Actions section on each comment for issue resolution */
+.comment-actions {
+  margin-top: 0.5rem;
+}
+.resolve-btn {
+  background-color: var(--color-green);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.resolve-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Add recommendation form */
+form.recommendation-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form.recommendation-form h2 {
+  margin-top: 0;
+  color: var(--color-green);
+}
+
+form.recommendation-form .field {
+  margin-bottom: 1.5rem;
+}
+
+form.recommendation-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+form.recommendation-form input[type="text"],
+form.recommendation-form textarea,
+form.recommendation-form select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+form.recommendation-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+form.recommendation-form .rating-category {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+form.recommendation-form .rating-category span {
+  margin-right: 1rem;
+  width: 90px;
+}
+
+form.recommendation-form .smileys {
+  display: flex;
+  gap: 0.5rem;
+}
+
+form.recommendation-form .smiley {
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.4rem;
+  border-radius: 4px;
+}
+
+form.recommendation-form .smiley.selected {
+  background-color: var(--color-gold);
+  color: white;
+}
+
+form.recommendation-form input[type="file"] {
+  border: none;
+  font-size: 1rem;
+}
+
+form.recommendation-form .submit-btn {
+  background-color: var(--color-green);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+form.recommendation-form .submit-btn:hover {
+  background-color: var(--color-dark-green);
+}
+
+/* ================= Additional homepage sections ================= */
+
+/* Metrics row on the home page */
+.metrics-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: -3rem;
+  position: relative;
+  z-index: 1;
+}
+.metric {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+  text-align: center;
+}
+.metric .number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-green);
+}
+.metric .label {
+  font-size: 0.9rem;
+  color: var(--color-dark-green);
+}
+
+/* Quick search categories grid */
+.quick-search-section {
+  padding: 3rem 1rem;
+  background-color: var(--color-cream);
+  text-align: center;
+}
+.quick-search-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.quick-card {
+  background-color: white;
+  border: 2px solid var(--color-light-gray);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  color: var(--color-dark-green);
+  text-decoration: none;
+}
+.quick-card:hover {
+  background-color: var(--color-cream);
+  transform: scale(1.05);
+}
+.quick-card .emoji {
+  font-size: 1.8rem;
+}
+.quick-card .name {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-dark-green);
+}
+
+/* Popular areas section */
+.areas-section {
+  padding: 3rem 1rem;
+  background-color: white;
+}
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.area-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+.area-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.area-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+.area-card .area-info {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+}
+.area-card .area-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.area-card .area-info span {
+  font-size: 0.85rem;
+}
+
+/* Call to action section */
+.cta-section {
+  padding: 4rem 1rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-green) 0%,
+    var(--color-green) 60%,
+    var(--color-gold) 100%
+  );
+  color: white;
+  text-align: center;
+}
+.cta-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.cta-section p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+.cta-section .cta-btn {
+  background-color: var(--color-gold);
+  color: var(--color-dark-green);
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.cta-section .cta-btn:hover {
+  background-color: #b88b49;
+}
+
+/* Recent recommendations grid */
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.recommend-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.recommend-card .header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.recommend-card .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-green), var(--color-dark-green));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.recommend-card .user-info {
+  flex: 1;
+}
+.recommend-card .user-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-dark-green);
+}
+.recommend-card .user-info .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+.recommend-card .user-info .meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.recommend-card .verify-badge {
+  background-color: #e8e4f1;
+  color: #43336e;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+}
+.recommend-card .review-text {
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0.8rem;
+  color: var(--color-text);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.recommend-card .ratings-row {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  margin-top: auto;
+  color: var(--color-dark-green);
+}
+.recommend-card .ratings-row span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+  .ratings-summary {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  form.recommendation-form {
+    padding: 1rem;
+  }
+}
+
+/*
+ * Mobile‑first adjustments.  On very small screens the vertical
+ * sidebar collapses into a horizontal navigation bar fixed to the
+ * bottom of the screen.  Labels are hidden to save space but the
+ * icons remain.  Content is padded at the bottom so it isn’t
+ * obscured by the nav bar.  Grids and metric sections stack
+ * vertically for a more comfortable reading experience on phones.
+ */
+@media (max-width: 600px) {
+  .with-sidebar .sidebar {
+    width: 100%;
+    height: 60px;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+  }
+  .with-sidebar .sidebar .logo {
+    display: none;
+  }
+  .with-sidebar .sidebar nav {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .with-sidebar .sidebar nav a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+  .with-sidebar .sidebar nav .label {
+    display: none;
+  }
+  .with-sidebar .sidebar .brand-name {
+    display: none;
+  }
+  .brand-logo {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+  .brand-logo-img {
+    width: 32px;
+    height: 32px;
+  }
+  .with-sidebar .main-content {
+    margin-left: 0;
+    padding-bottom: 60px;
+  }
+  .metrics-row {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    margin-top: 1rem;
+  }
+  .metric {
+    min-width: 100%;
+    width: 100%;
+  }
+  .quick-search-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+  .areas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+  .area-group-cards {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/*
+ * Areas page styles.  Groups of areas are displayed with a heading,
+ * description and a responsive grid of cards.  Each card links to
+ * the Browse page filtered by that area, and shows the area name,
+ * a short description and the number of restaurants in the sample
+ * data.  These styles reuse the colour palette defined above.
+ */
+.area-group {
+  margin-bottom: 2.5rem;
+}
+
+.area-group-title {
+  font-size: 1.6rem;
+  margin: 0 0 0.3rem;
+  color: var(--color-dark-green);
+}
+
+.area-group-desc {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  max-width: 700px;
+  color: var(--color-text);
+}
+
+.area-group-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.area-detail-card {
+  background-color: white;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.1s ease;
+}
+
+.area-detail-card:hover {
+  transform: translateY(-3px);
+}
+
+.area-detail-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: var(--color-green);
+}
+
+.area-detail-card p {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.area-detail-card .count {
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--color-dark-green);
+}

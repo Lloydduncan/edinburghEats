@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Edinburgh Eats — Add Recommendation (FULL inline v4.7)</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fafafa;color:#111;margin:0}
+.header{position:sticky;top:0;background:#111;color:#fff;padding:10px 14px;font:14px/1.35 system-ui;z-index:9999}
+.container{max-width:900px;margin:16px auto;padding:0 12px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px 16px;margin:12px 0}
+h1{font-size:20px;margin:6px 0 8px}
+h3{font-size:16px;margin:0 0 8px}
+label{display:block;font-weight:600;margin:8px 0 6px}
+input[type="text"],input[type="file"],textarea,select,input[type="date"]{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
+.row{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.row-2{grid-template-columns:1fr 1fr}}
+.smileys{display:flex;gap:.5rem;margin:.5rem 0}
+.smileys .smiley{padding:.35rem .5rem;border:1px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer}
+.smileys .smiley.active{outline:2px solid #a78bfa;border-radius:8px}
+.score-badge{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#0b0b0b 0%,#1a1a1a 100%);color:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.score-badge .sub{opacity:.8;font-size:12px}
+.preview-wrap{display:flex;align-items:flex-start;gap:.75rem;margin-top:.5rem}
+.preview-thumb{width:90px;height:90px;border:1px solid #e5e7eb;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f8fafc;flex:0 0 90px}
+.preview-thumb img{max-width:100%;max-height:100%;display:block}
+.preview-meta{font-size:12px;color:#374151;min-width:0}
+.pill{display:inline-block;border:1px solid #e5e7eb;border-radius:999px;padding:2px 8px;font-size:11px;background:#f8fafc;margin-top:4px}
+.pill.ok{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
+.pill.warn{background:#fff7ed;border-color:#fed7aa;color:#7c2d12}
+.map-preview{margin-top:.5rem;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff}
+.map-preview iframe{display:block;width:100%;height:220px;border:0}
+.mini-map{width:120px;height:90px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;background:#fff;flex:0 0 120px}
+.mini-map iframe{width:100%;height:100%;border:0;display:block}
+.small{font-size:12px;color:#6b7280}
+</style>
+<script src="js/exif-verify.js"></script>
+</head>
+<body>
+
+<style>
+@media(min-width: 900px){
+  .ee-shell{display:grid;grid-template-columns:240px 1fr;gap:16px;align-items:start}
+  .ee-leftnav{position:sticky;top:0;align-self:start;border:1px solid #e5e7eb;border-radius:12px;padding:10px;background:#fff}
+  .ee-leftnav a{display:block;padding:8px 10px;border-radius:8px;text-decoration:none;color:#111;border:1px solid #f0f0f0;margin-bottom:6px}
+  .ee-leftnav a:hover{background:#f8f8f8}
+}
+.ee-topbar{position:sticky;top:0;z-index:10;background:#ffffffcc;backdrop-filter:blur(6px);border-bottom:1px solid #e5e7eb}
+.ee-topbar .inner{max-width:1100px;margin:0 auto;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.ee-logo{width:32px;height:32px;border-radius:8px;object-fit:cover}
+.ee-container{max-width:1100px;margin:16px auto;padding:0 12px}
+</style>
+<div class="ee-topbar"><div class="inner"><img class="ee-logo" src="logo.png" alt="logo"><strong>Edinburgh Eats</strong></div></div>
+<div class="ee-container ee-shell">
+  <aside class="ee-leftnav">
+    <strong>Edinburgh Eats</strong>
+    <a href="index.html">Home</a>
+    <a href="browse.html">Browse</a>
+    <a href="areas.html">Areas</a>
+    <a href="add_recommendation.html">Add recommendation</a>
+    <a href="moderation.html">Moderate</a>
+  </aside>
+  <div class="ee-main">
+
+<div class="header">Edinburgh Eats — <b>FULL inline v4.7</b> (per-file mini map)</div>
+<div class="container">
+  <h1>Add a Recommendation</h1>
+
+  <form id="rec-form" class="card">
+    <div class="row row-2">
+      <div>
+        <label for="venue">Restaurant/Café</label>
+        <input id="venue" type="text" placeholder="Start typing venue name…" />
+      </div>
+      <div>
+        <label for="visit">Visit date</label>
+        <input id="visit" type="date" inputmode="numeric" placeholder="dd/mm/yyyy" />
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Ratings — 5 Smileys</h3>
+      <p class="score-badge"><span class="sub">Overall score</span> <span id="overall-score-val">— / 10</span></p>
+      <div class="row row-2">
+        <div><div>Quality</div><div id="sm-quality" class="smileys"></div><input type="hidden" id="hid-quality" /></div>
+        <div><div>Value</div><div id="sm-value" class="smileys"></div><input type="hidden" id="hid-value" /></div>
+        <div><div>Service</div><div id="sm-service" class="smileys"></div><input type="hidden" id="hid-service" /></div>
+        <div><div>Menu choice</div><div id="sm-menu" class="smileys"></div><input type="hidden" id="hid-menu" /></div>
+        <div><div>Ambience</div><div id="sm-ambience" class="smileys"></div><input type="hidden" id="hid-ambience" /></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Upload proof (optional)</h3>
+      <div class="row row-2">
+        <div>
+          <label for="receipt">Upload receipt</label>
+          <input id="receipt" type="file" accept="image/jpeg,image/jpg,image/png,application/pdf" />
+          <div id="receipt-preview" class="preview-wrap" hidden>
+            <div id="receipt-thumb" class="preview-thumb"></div>
+            <div id="receipt-meta" class="preview-meta"></div>
+            <div id="receipt-mini" class="mini-map" hidden></div>
+          </div>
+          <div id="receipt-pill" class="pill" style="display:none"></div>
+        </div>
+        <div>
+          <label for="photo">Upload photo proof</label>
+          <input id="photo" type="file" accept="image/jpeg,image/jpg,image/png" />
+          <div id="photo-preview" class="preview-wrap" hidden>
+            <div id="photo-thumb" class="preview-thumb"></div>
+            <div id="photo-meta" class="preview-meta"></div>
+            <div id="photo-mini" class="mini-map" hidden></div>
+          </div>
+          <div id="photo-pill" class="pill" style="display:none"></div>
+        </div>
+      </div>
+      <div id="format-msg" class="small" style="display:none"></div>
+    </div>
+
+    <div class="card">
+      <h3>Verify your visit (optional)</h3>
+      <div id="gps-status" class="small">—</div>
+      <div class="map-preview" id="map-preview" style="display:none"></div>
+      <div class="actions" style="margin-top:.5rem">
+        <button type="button" id="use-geo">Use my current location</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <button type="button" id="submit">Submit Recommendation</button>
+      <span class="small" id="out"></span>
+    </div>
+  </form>
+</div>
+
+<script>
+// score
+function eeGetInt(id){ const v=document.getElementById(id)?.value; return v?parseInt(v,10):0;}
+function eeUpdateOverall(force){
+  const vals=[eeGetInt('hid-quality'),eeGetInt('hid-value'),eeGetInt('hid-service'),eeGetInt('hid-menu'),eeGetInt('hid-ambience')];
+  const filled=vals.filter(Boolean);
+  const el=document.getElementById('overall-score-val');
+  if(!filled.length && !force){ el.textContent='— / 10'; return; }
+  const avg5=(vals.reduce((a,b)=>a+(b||0),0)/(filled.length||5));
+  const score10=Math.round((avg5*2)*10)/10;
+  el.textContent=(isFinite(score10)?score10.toFixed(1):'0.0')+' / 10';
+}
+function buildSmileys(cid,hid){
+  const c=document.getElementById(cid); if(!c) return;
+  c.innerHTML=''; const faces=['🙁','😐','🙂','😊','😍'];
+  for(let i=1;i<=5;i++){ const b=document.createElement('button'); b.type='button'; b.className='smiley'; b.textContent=faces[i-1];
+    b.addEventListener('click',()=>{ c.querySelectorAll('.smiley').forEach(n=>n.classList.remove('active')); b.classList.add('active'); const h=document.getElementById(hid); if(h) h.value=String(i); eeUpdateOverall(true);}); c.appendChild(b);}
+}
+
+// file helpers
+function eeDetectFormat(name,type){const l=(name||'').toLowerCase();const t=(type||'').toLowerCase();
+  if(l.endsWith('.heic')||l.endsWith('.heif')||t.includes('heic')||t.includes('heif'))return'heic';
+  if(l.endsWith('.dng')||t.includes('dng')||l.endsWith('.raw')||t.includes('raw'))return'dng';
+  if(l.endsWith('.jpg')||l.endsWith('.jpeg')||t.includes('jpeg')||t.includes('jpg'))return'jpeg';
+  if(l.endsWith('.png')||t.includes('png'))return'png'; return'other';
+}
+function eeToU8(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(new Uint8Array(r.result)); r.onerror=rej; r.readAsArrayBuffer(file);}); }
+function eeR16(dv,o,le){return le?dv.getUint16(o,true):dv.getUint16(o,false);} function eeR32(dv,o,le){return le?dv.getUint32(o,true):dv.getUint32(o,false);}
+function eeFindAPP1(u8){
+  if(!(u8[0]===0xFF && u8[1]===0xD8)) return null; // SOI
+  let off=2;
+  while(off+4<u8.length){
+    if(u8[off]!==0xFF){ off++; continue; }
+    const marker=u8[off+1];
+    const len=(u8[off+2]<<8)+u8[off+3];
+    if(marker===0xE1 && off+10<u8.length){
+      if(u8[off+4]===0x45 && u8[off+5]===0x78 && u8[off+6]===0x69 && u8[off+7]===0x66 && u8[off+8]===0x00 && u8[off+9]===0x00){
+        return {start:off+10,length:len-2-6};
+      }
+    }
+    if(marker===0xDA) break; // SOS
+    off+=2+len;
+  }
+  return null;
+}
+function eeParseEXIFGPS(u8){
+  const app=eeFindAPP1(u8); if(!app) return {noApp1:true};
+  const tiff=app.start; const dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength);
+  const little=(dv.getUint16(tiff,false)===0x4949 || dv.getUint16(tiff,false)===0x4D4D && false); // accept endian flag, little if 0x4949
+  const isLittle = (dv.getUint16(tiff,false)===0x4949);
+  if(!isLittle && dv.getUint16(tiff,false)!==0x4D4D) return {badTiff:true};
+  if(eeR16(dv,tiff+2,isLittle)!==0x002A) return {badTag:true};
+  const ifd0=tiff+eeR32(dv,tiff+4,isLittle); const n=eeR16(dv,ifd0,isLittle);
+  let gpsOff=null; for(let i=0;i<n;i++){ const e=ifd0+2+i*12; const tg=eeR16(dv,e,isLittle); if(tg===0x8825){ gpsOff=tiff+eeR32(dv,e+8,isLittle); break; } }
+  if(!gpsOff) return {noGPSIFD:true};
+  const cnt=eeR16(dv,gpsOff,isLittle); let laRef,la,loRef,lo;
+  function rat(off){ const num=eeR32(dv,off,isLittle), den=eeR32(dv,off+4,isLittle); return den?num/den:0; }
+  function dms(a){ return a[0]+a[1]/60+a[2]/3600; }
+  for(let i=0;i<cnt;i++){ const e=gpsOff+2+i*12; const tg=eeR16(dv,e,isLittle); const ty=eeR16(dv,e+2,isLittle); const c=eeR32(dv,e+4,isLittle); const val=eeR32(dv,e+8,isLittle);
+    if(tg===0x0001){ const off=(ty===2 && c<=4)?(e+8):(tiff+val); laRef=String.fromCharCode(dv.getUint8(off)); }
+    if(tg===0x0002){ const off=tiff+val; la=[rat(off),rat(off+8),rat(off+16)]; }
+    if(tg===0x0003){ const off=(ty===2 && c<=4)?(e+8):(tiff+val); loRef=String.fromCharCode(dv.getUint8(off)); }
+    if(tg===0x0004){ const off=tiff+val; lo=[rat(off),rat(off+8),rat(off+16)]; }
+  }
+  if(!la||!lo||!laRef||!loRef) return {noCoords:true};
+  let lat=dms(la), lon=dms(lo); if(laRef.toUpperCase()==='S') lat=-lat; if(loRef.toUpperCase()==='W') lon=-lon;
+  return {lat,lon};
+}
+function eeRound(v,m){ const deg=m/111320; return Math.round(v/deg)*deg; }
+function gmapsEmbed(lat,lon,zoom){ return 'https://www.google.com/maps?q='+lat.toFixed(6)+','+lon.toFixed(6)+'&z='+(zoom||16)+'&output=embed'; }
+function setMiniMap(id,lat,lon){ const d=document.getElementById(id); if(!d) return; d.innerHTML='<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="'+gmapsEmbed(lat,lon,16)+'"></iframe>'; d.hidden=false; }
+function setPill(id,text,kind){ const pill=document.getElementById(id); pill.textContent=text; pill.className='pill '+(kind||''); pill.style.display='inline-block'; }
+
+async function tryExifFor(input){
+  const f=input.files && input.files[0]; if(!f) return;
+  const fmt=eeDetectFormat(f.name,f.type);
+  setPill(input.id+'-pill',(fmt||'unknown').toUpperCase(),'');
+  const metaTarget=(input.id==='receipt')?document.getElementById('receipt-meta'):document.getElementById('photo-meta');
+  const miniId=(input.id==='receipt')?'receipt-mini':'photo-mini';
+  // clear mini
+  const mini = document.getElementById(miniId); if(mini){ mini.hidden=true; mini.innerHTML=''; }
+  if(fmt==='jpeg'){
+    try{
+      const u8=await eeToU8(f); const gps=eeParseEXIFGPS(u8);
+      if(gps && gps.lat){
+        const latR=eeRound(gps.lat,50), lonR=eeRound(gps.lon,50);
+        setPill(input.id+'-pill','JPEG • GPS found','ok');
+        setMiniMap(miniId, latR, lonR); // per-file mini map
+        // keep big map too
+        document.getElementById('map-preview').innerHTML='<iframe loading="lazy" src="'+gmapsEmbed(latR,lonR)+'"></iframe>'; document.getElementById('map-preview').style.display='block';
+        metaTarget && (metaTarget.innerHTML = (metaTarget.innerHTML||'') + '<div class="small">EXIF GPS '+gps.lat.toFixed(5)+', '+gps.lon.toFixed(5)+' → stored ≈50 m</div>');
+      } else {
+        setPill(input.id+'-pill','JPEG • no GPS','warn');
+      }
+    }catch(e){
+      setPill(input.id+'-pill','JPEG • EXIF error','warn');
+    }
+  } else if(fmt==='png'){ setPill(input.id+'-pill','PNG • no EXIF','warn'); }
+  else if(fmt==='heic'){ setPill(input.id+'-pill','HEIC • not readable here','warn'); }
+  else if(fmt==='dng'){ setPill(input.id+'-pill','DNG • not readable here','warn'); }
+}
+
+function wirePreviews(){
+  document.querySelectorAll('input[type=file]').forEach(function(inp){
+    const wrap = inp.nextElementSibling && inp.nextElementSibling.classList.contains('preview-wrap') ? inp.nextElementSibling : null;
+    const thumb = wrap?.querySelector('.preview-thumb'); const meta = wrap?.querySelector('.preview-meta');
+    inp.addEventListener('change', function(){
+      if(!wrap) return;
+      const f=inp.files && inp.files[0]; if(!f){ wrap.hidden=true; return; }
+      const r=new FileReader(); r.onload=e=>{ const img=new Image(); img.onload=()=>{ thumb.innerHTML=''; thumb.appendChild(img); meta.textContent=(f.name||'image')+' · '+(Math.round(f.size/1024))+' KB · '+img.naturalWidth+'×'+img.naturalHeight; wrap.hidden=false; }; img.src=e.target.result; }; r.readAsDataURL(f);
+    });
+  });
+}
+
+function wireVerification(){
+  const receipt=document.getElementById('receipt'); const photo=document.getElementById('photo'); const gpsEl=document.getElementById('gps-status');
+  receipt && receipt.addEventListener('change',()=>tryExifFor(receipt));
+  photo && photo.addEventListener('change',()=>tryExifFor(photo));
+  document.getElementById('use-geo').addEventListener('click',()=>{
+    if(!('geolocation' in navigator)){ gpsEl.textContent='Browser location not supported'; return; }
+    navigator.geolocation.getCurrentPosition(pos=>{
+      const lat=pos.coords.latitude, lon=pos.coords.longitude; const latR=eeRound(lat,50), lonR=eeRound(lon,50);
+      document.getElementById('map-preview').innerHTML='<iframe loading="lazy" src="'+gmapsEmbed(latR,lonR)+'"></iframe>'; document.getElementById('map-preview').style.display='block';
+      gpsEl.textContent='Browser location ' + lat.toFixed(5)+', '+lon.toFixed(5)+' → stored ≈50 m (±~'+Math.round(pos.coords.accuracy)+' m)';
+    }, err=>{ gpsEl.textContent='Location denied/unavailable ('+err.code+')'; }, {timeout:8000, maximumAge:60000});
+  });
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  buildSmileys('sm-quality','hid-quality');
+  buildSmileys('sm-value','hid-value');
+  buildSmileys('sm-service','hid-service');
+  buildSmileys('sm-menu','hid-menu');
+  buildSmileys('sm-ambience','hid-ambience');
+  eeUpdateOverall(true);
+  wirePreviews();
+  wireVerification();
+});
+</script>
+
+</div>
+</div>
+</body>
+</html>
